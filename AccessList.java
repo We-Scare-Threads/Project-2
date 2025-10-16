@@ -2,7 +2,7 @@
 
 class AccessList {
     public static void main(String[] args) {
-        System.out.println("Access List for Objects Implementation Selected.");
+        System.out.println("Access List for Objects Implementation Selected.\n");
         // Implementation details would go here
     }
 }

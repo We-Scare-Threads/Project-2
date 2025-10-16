@@ -2,7 +2,7 @@
 
 class AccessMatrix {
     public static void main(String[] args) {
-        System.out.println("Access Matrix Implementation Selected.");
+        System.out.println("Access Matrix Implementation Selected.\n");
         // Implementation details would go here
     }
 }
