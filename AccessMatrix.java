@@ -25,14 +25,13 @@ class AccessMatrix {
         for (int r = 0; r < (numObjects + numDomains); r++) {
             resources[r] = new ReentrantLock();
         }
-        System.out.println("Resources holds: " + numObjects + " files(objects) and " + numDomains + " domains. " + resources.length + " in total.\n");
-        System.out.println("Users holds: " + numDomains + " domains.\n");
+        System.out.println("Resources Array holds: " + numObjects + " files(objects) and " + numDomains + " domains. " + resources.length + " in total.\n");
+        System.out.println("Num of Users (domains) shall be: " + numDomains + ".\n");
         System.out.println("User Access Key: ");
-        System.out.println("(O) = Accessed Object, (R) = Read, (W) = Write, (X) = Access Denied, (E) = No Assigned Permissions\n");
+        System.out.println("(O) = Accessed Object, (R) = Read, (W) = Write, (E) = No Assigned Permissions, **An attached X = Access Denied**\n");
 
         for (int i = 0; i < numDomains; i++){
             Users user = new Users(i, accMat, resources, numDomains, numObjects);
-            System.out.println("Starting User D" + i);
             user.start();
         }
     }
