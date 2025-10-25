@@ -1,8 +1,71 @@
 //Task 3: Implementation with Capability Lists for Domains
 
+import java.util.LinkedList;
+import java.util.Random;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 class CapList {
+    static Lock[] resources;
+
     public static void main(String[] args) {
-        System.out.println("Capability List for Domains Implementation Selected.\n");
-        // Implementation details would go here
+        System.out.println("\nCapacity List Key: ");
+        System.out.println("R = Read, W = Write, B = Both (Read/Write), E = Empty/No Access, N = No Access (for Domains ONLY)");
+        Random random = new Random();
+
+        int numDomains = random.nextInt(5) + 3;
+        int numObjects = random.nextInt(5) + 3;
+
+        System.out.println("D: " + numDomains);
+        System.out.println("O: " + numObjects + "\n");
+
+        LinkedList<LinkedList<String>> capList = CList(numDomains, numObjects);
+
+        resources = new Lock[numObjects + numDomains];
+        for (int r = 0; r < (numObjects + numDomains); r++) {
+            resources[r] = new ReentrantLock();
+        }
+        System.out.println("Resources Array holds: " + numObjects + " files(objects) and " + numDomains + " domains. " + resources.length + " in total.\n");
+        System.out.println("Num of Users (domains) shall be: " + numDomains + ".\n");
+        System.out.println("User Access Key: ");
+        System.out.println("(O) = Accessed Object, (R) = Read, (W) = Write, (E) = No Assigned Permissions, **An attached X = Access Denied**\n");
+
+        //for (int i = 0; i < numDomains; i++){
+        //    Users user = new Users(i, aListD, aListF, resources, numDomains, numObjects);
+        //    user.start();
+        //}
+    }
+
+    public static LinkedList<LinkedList<String>> CList(int n, int m) {
+        Random random = new Random();
+        int r;
+        // e = empty, b = both r/w, n = n/a, a = allow, will format later
+        String[] objperms = {"E", "R", "W", "B"};
+        String[] domperms = {"E", "A"};
+
+        LinkedList<LinkedList<String>> lists = new LinkedList<>();
+
+        for (int i = 1; i <= n + m; i++) {
+            LinkedList<String> cList = new LinkedList<>();
+            lists.add(cList);
+        }
+
+        System.out.println("Capacity List:");
+        for(int j=1; j<=n; j++) {
+            for (int i = 1; i <= m; i++) {
+                r = random.nextInt(4);
+                lists.get(j).add(objperms[r]);
+            }
+            for (int i = 1; i <= n; i++) {
+                r = random.nextInt(2);
+                lists.get(j).add(domperms[r]);
+            }
+
+        }
+        for (int i = 1; i <= n; i++) {
+            System.out.println("D" + i + " --> "+lists.get(i));
+        }
+
+        return lists;
     }
 }
