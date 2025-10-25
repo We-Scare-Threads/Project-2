@@ -37,9 +37,10 @@ class Users extends Thread {
                 int actionIndex = random.nextInt(objActions.length);
                 String permission = accMat[userId][objId];
                 String action;
-                // yields after request but not sure where it would be
-                //yieldR();
+
                 if (objId >= numObjects) { // Domain switch
+                    System.out.println("User D" + userId + " ATTEMPTS to switch to Domain D" + (objId - numObjects));
+                    yieldR();
                     if (permission.equals("A")) {
                         resources[objId].lock();
                         System.out.println("User D" + userId + " SWITCHING to Domain D" + (objId - numObjects) + " (A)");
@@ -64,21 +65,30 @@ class Users extends Thread {
                     }
                 } else {
                     action = objActions[actionIndex];
+                    if (action.equals("R")) {
+                        System.out.println("User D" + userId + " ATTEMPTS to READ on (O" + objId + ")");
+                        yieldR();
+                    }
+                    else if (action.equals("W")) {
+                        System.out.println("User D" + userId + " ATTEMPTS to WRITE on (O" + objId + ")");
+                        yieldR();
+                    }
+
                     switch (action) {
                         case "R":
                             if (permission.equals("E")) {
                                 resources[objId].lock();
-                                System.out.println("User D" + userId + " tried READ with EMPTY permissions on (F" + objId + ") (E) - X");
+                                System.out.println("User D" + userId + " tried READ with EMPTY permissions on (O" + objId + ") (E) - X");
                                 yieldR();
                                 resources[objId].unlock();
                             } else if (permission.equals("R") || permission.equals("B")) {
                                 resources[objId].lock();
-                                System.out.println("User D" + userId + " accessed (F" + objId + ") with (R)");
+                                System.out.println("User D" + userId + " accessed (O" + objId + ") with (R)");
                                 yieldR();
                                 resources[objId].unlock();
                             } else {
                                 resources[objId].lock();
-                                System.out.println("User D" + userId + " CANNOT READ to (F" + objId + ") with (R) - X");
+                                System.out.println("User D" + userId + " CANNOT READ to (O" + objId + ") with (R) - X");
                                 yieldR();
                                 resources[objId].unlock();
                             }
@@ -86,17 +96,17 @@ class Users extends Thread {
                         case "W":
                             if (permission.equals("E")) {
                                 resources[objId].lock();
-                                System.out.println("User D" + userId + " tried WRITE with EMPTY permissions on (F" + objId + ") (E) - X");
+                                System.out.println("User D" + userId + " tried WRITE with EMPTY permissions on (O" + objId + ") (E) - X");
                                 yieldR();
                                 resources[objId].unlock();
                             } else if (permission.equals("W") || permission.equals("B")) {
                                 resources[objId].lock();
-                                System.out.println("User D" + userId + " accessed (F" + objId + ") with (W)");
+                                System.out.println("User D" + userId + " accessed (O" + objId + ") with (W)");
                                 yieldR();
                                 resources[objId].unlock();
                             } else {
                                 resources[objId].lock();
-                                System.out.println("User D" + userId + " CANNOT WRITE to (F" + objId + ") with (W) - X");
+                                System.out.println("User D" + userId + " CANNOT WRITE to (O" + objId + ") with (W) - X");
                                 yieldR();
                                 resources[objId].unlock();
                             }
@@ -108,6 +118,8 @@ class Users extends Thread {
         } catch (Error e) {
             Thread.currentThread().interrupt();
         }
+        // if thread switches domain, user can exist multiple times
+        System.out.println("User D" + userId + " is Done");
     }
     public void switchUser(int a){
         userId = (a - numObjects);
