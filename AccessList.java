@@ -42,15 +42,15 @@ class AccessList {
 
         LinkedList<LinkedList<String>> lists = new LinkedList<>();
 
-        for(int i=1; i<=n+m; i++) {
+        for(int i=0; i<n+m; i++) {
             LinkedList<String> aList = new LinkedList<>();
             lists.add(aList);
         }
 
         System.out.println("Access List:");
-        for(int j=1; j<=n+m; j++) {
-            for (int i = 1; i <= n+m; i++) {
-                if(i>m) {
+        for(int j=0; j<n+m; j++) {
+            for (int i = 0; i < m; i++) {
+                if(j<(m)){ // Object permissions
                     r = random.nextInt(4);
                     lists.get(j).add(objperms[r]);
                 }
@@ -61,11 +61,41 @@ class AccessList {
             }
 
         }
-        for (int i = 1; i <= m; i++) {
-            System.out.println("F" + i + " --> "+lists.get(i));
+        for (int i = 0; i < m; i++) {
+            int lastAccess = m-1;
+            System.out.print("O" + i + " --> [");
+            for(int j=0; j<lists.get(i).size(); j++) {
+                while(lists.get(i).get((lastAccess)).equals("E") && lastAccess > 0) lastAccess--;
+                if(j!=(lastAccess)){
+                    if(!(lists.get(i).get(j).equals("E"))){
+                        System.out.print("D" + j + ": " + lists.get(i).get(j) + " -> ");
+                    }
+                }
+                else{
+                    if(!(lists.get(i).get(j).equals("E"))){
+                        System.out.print("D" + j + ": " + lists.get(i).get(j));
+                    }
+                }
+            }
+            System.out.println("]");
         }
-        for (int i = 1; i <= n; i++) {
-            System.out.println("D" + i + " --> "+lists.get(i));
+        for (int i = 0; i < n; i++) {
+            int lastAccess = m-1;
+            while(lists.get(i+m).get((lastAccess)).equals("E") && lastAccess > 0) lastAccess--;
+            System.out.print("D" + i + " --> [");
+            for(int j=0; j<lists.get(i+m).size(); j++) {
+                if(j!=(lastAccess)){
+                    if(!(lists.get(i+m).get(j).equals("E"))){
+                        System.out.print("D" + j + ": " + lists.get(i+m).get(j) + " -> ");
+                    }
+                }
+                else{
+                    if(!(lists.get(i+m).get(j).equals("E"))){
+                        System.out.print("D" + j + ": " + lists.get(i+m).get(j));
+                    }
+                }
+            }
+            System.out.println("]");
         }
         return lists;
     }
