@@ -10,13 +10,17 @@ class Users extends Thread {
     static String domAction = "A";
     private int numDomains;
     private int numObjects;
+    private String[] data;
+    private static String[] Colors;
 
-    public Users(int userId, String[][] accMat, Lock[] resources, int numDomains, int numObjects) {
+    public Users(int userId, String[][] accMat, Lock[] resources, int numDomains, int numObjects, String[] data, String[] Colors) {
         this.userId = userId;
         this.accMat = accMat;
         this.resources = resources;
         this.numDomains = numDomains;
         this.numObjects = numObjects;
+        this.data = data;
+        this.Colors = Colors;
     }
 
     public void yieldR() {
@@ -73,7 +77,7 @@ class Users extends Thread {
                                 resources[objId].unlock();
                             } else if (permission.equals("R") || permission.equals("B")) {
                                 resources[objId].lock();
-                                System.out.println("User D" + userId + " accessed (F" + objId + ") with (R)");
+                                System.out.println("User D" + userId + " accessed (F" + objId + ") Reading '" + data[objId] + "' with (R)");
                                 yieldR();
                                 resources[objId].unlock();
                             } else {
@@ -91,7 +95,9 @@ class Users extends Thread {
                                 resources[objId].unlock();
                             } else if (permission.equals("W") || permission.equals("B")) {
                                 resources[objId].lock();
-                                System.out.println("User D" + userId + " accessed (F" + objId + ") with (W)");
+                                int r = random.nextInt(Colors.length);
+                                data[objId] = Colors[r];
+                                System.out.println("User D" + userId + " accessed (F" + objId + ") Writing '" + data[objId] + "' with (W)");
                                 yieldR();
                                 resources[objId].unlock();
                             } else {
