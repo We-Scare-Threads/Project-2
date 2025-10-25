@@ -49,7 +49,7 @@ class AccessList {
 
         System.out.println("Access List:");
         for(int j=0; j<n+m; j++) {
-            for (int i = 0; i < m; i++) {
+            for (int i = 0; i < n; i++) {
                 if(j<(m)){ // Object permissions
                     r = random.nextInt(4);
                     lists.get(j).add(objperms[r]);
@@ -61,15 +61,13 @@ class AccessList {
             }
 
         }
-        for (int i = 0; i < m; i++) {
-            int lastAccess = m-1;
+        for (int i = 0; i < n; i++) {
+            int lastAccess = n-1;
             System.out.print("O" + i + " --> [");
+            while(lists.get(i).get(lastAccess).equals("E") && lastAccess > 0) lastAccess--;
             for(int j=0; j<lists.get(i).size(); j++) {
-                while(lists.get(i).get((lastAccess)).equals("E") && lastAccess > 0) lastAccess--;
-                if(j!=(lastAccess)){
-                    if(!(lists.get(i).get(j).equals("E"))){
-                        System.out.print("D" + j + ": " + lists.get(i).get(j) + " -> ");
-                    }
+                if(j!=(lastAccess) && !(lists.get(i).get(j).equals("E"))){
+                    System.out.print("D" + j + ": " + lists.get(i).get(j) + " -> ");
                 }
                 else{
                     if(!(lists.get(i).get(j).equals("E"))){
@@ -80,14 +78,12 @@ class AccessList {
             System.out.println("]");
         }
         for (int i = 0; i < n; i++) {
-            int lastAccess = m-1;
+            int lastAccess = n-1;
             while(lists.get(i+m).get((lastAccess)).equals("E") && lastAccess > 0) lastAccess--;
             System.out.print("D" + i + " --> [");
             for(int j=0; j<lists.get(i+m).size(); j++) {
-                if(j!=(lastAccess)){
-                    if(!(lists.get(i+m).get(j).equals("E"))){
-                        System.out.print("D" + j + ": " + lists.get(i+m).get(j) + " -> ");
-                    }
+                if(j!=(lastAccess) && !(lists.get(i+m).get(j).equals("E"))){
+                    System.out.print("D" + j + ": " + lists.get(i+m).get(j) + " -> ");
                 }
                 else{
                     if(!(lists.get(i+m).get(j).equals("E"))){
