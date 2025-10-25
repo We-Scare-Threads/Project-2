@@ -28,10 +28,10 @@ class AccessList {
         System.out.println("User Access Key: ");
         System.out.println("(O) = Accessed Object, (R) = Read, (W) = Write, (E) = No Assigned Permissions, **An attached X = Access Denied**\n");
 
-        //for (int i = 0; i < numDomains; i++){
-        //    Users user = new Users(i, aListD, aListF, resources, numDomains, numObjects);
-        //    user.start();
-        //}
+        for (int i = 0; i < numDomains; i++){
+            Users_AList user = new Users_AList(i, accList, resources, numDomains, numObjects);
+            user.start();
+        }
     }
     public static LinkedList<LinkedList<String>> AList(int numDom, int numObj) {
         Random random = new Random();
@@ -55,8 +55,12 @@ class AccessList {
                     lists.get(j).add(objperms[r]);
                 }
                 else{
-                    r = random.nextInt(2);
-                    lists.get(j).add(domperms[r]);
+                    if (j == (i + numObj)) { // Domain to itself always allow
+                        lists.get(j).add("N");
+                    } else {
+                        r = random.nextInt(2);
+                        lists.get(j).add(domperms[r]);
+                    }
                 }
             }
 
@@ -79,14 +83,14 @@ class AccessList {
         }
         for (int i = 0; i < numDom; i++) {
             int lastAccess = numDom-1;
-            while(lists.get(i+numObj).get((lastAccess)).equals("E") && lastAccess > 0) lastAccess--;
+            while((lists.get(i+numObj).get((lastAccess)).equals("E") || lists.get(i+numObj).get((lastAccess)).equals("N")) && lastAccess > 0) lastAccess--;
             System.out.print("D" + i + " --> [");
             for(int j=0; j<lists.get(i+numObj).size(); j++) {
-                if(j!=(lastAccess) && !(lists.get(i+numObj).get(j).equals("E"))){
+                if(j!=(lastAccess) && !(lists.get(i+numObj).get(j).equals("E")|| lists.get(i+numObj).get(j).equals("N"))){
                     System.out.print("D" + j + ": " + lists.get(i+numObj).get(j) + " -> ");
                 }
                 else{
-                    if(!(lists.get(i+numObj).get(j).equals("E"))){
+                    if(!(lists.get(i+numObj).get(j).equals("E") || lists.get(i+numObj).get(j).equals("N"))){
                         System.out.print("D" + j + ": " + lists.get(i+numObj).get(j));
                     }
                 }
