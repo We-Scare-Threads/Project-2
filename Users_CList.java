@@ -79,7 +79,7 @@ class Users_CList extends Thread {
                                 resources[objId].unlock();
                             } else {
                                 resources[objId].lock();
-                                System.out.println("User D" + userId + " CANNOT READ (F" + objId + ") with (" + permission + ") - X");
+                                System.out.println("User D" + userId + " CANNOT READ (O" + objId + ") with (" + permission + ") - X");
                                 yieldR();
                                 resources[objId].unlock();
                             }
@@ -99,7 +99,7 @@ class Users_CList extends Thread {
                                 resources[objId].unlock();
                             } else {
                                 resources[objId].lock();
-                                System.out.println("User D" + userId + " CANNOT WRITE (F" + objId + ") with (" + permission + ") - X");
+                                System.out.println("User D" + userId + " CANNOT WRITE (O" + objId + ") with (" + permission + ") - X");
                                 yieldR();
                                 resources[objId].unlock();
                             }
