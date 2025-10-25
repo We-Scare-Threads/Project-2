@@ -5,7 +5,9 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 class AccessList {
-    static Lock[] resources;
+    static Lock[] resourceLocks;
+    static String[] data;
+    public static final String[] Colors = {"blue", "red", "green", "yellow", "purple", "orange", "pink", "brown", "black", "white"};
     public static void main(String[] args) {
         System.out.println("\nAccess List Key: ");
         System.out.println("R = Read, W = Write, B = Both (Read/Write), E = Empty/No Access, N = No Access (for Domains ONLY)");
@@ -19,17 +21,19 @@ class AccessList {
 
         LinkedList<LinkedList<String>> accList = AList(numDomains, numObjects);
 
-        resources = new Lock[numObjects + numDomains];
+        resourceLocks = new Lock[numObjects + numDomains];
+        data = new String[numObjects + numDomains];
         for (int r = 0; r < (numObjects + numDomains); r++) {
-            resources[r] = new ReentrantLock();
+            resourceLocks[r] = new ReentrantLock();
+            data[r] = Colors[random.nextInt(Colors.length)];
         }
-        System.out.println("Resources Array holds: " + numObjects + " files(objects) and " + numDomains + " domains. " + resources.length + " in total.\n");
+        System.out.println("Resources Array holds: " + numObjects + " files(objects) and " + numDomains + " domains. " + resourceLocks.length + " in total.\n");
         System.out.println("Num of Users (domains) shall be: " + numDomains + ".\n");
         System.out.println("User Access Key: ");
         System.out.println("(O) = Accessed Object, (R) = Read, (W) = Write, (E) = No Assigned Permissions, **An attached X = Access Denied**\n");
 
         for (int i = 0; i < numDomains; i++){
-            Users_AList user = new Users_AList(i, accList, resources, numDomains, numObjects);
+            Users_AList user = new Users_AList(i, accList, resourceLocks, numDomains, numObjects, data, Colors);
             user.start();
         }
     }

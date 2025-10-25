@@ -11,13 +11,17 @@ class Users_AList extends Thread {
     static String domAction = "A";
     private int numDomains;
     private int numObjects;
+    private String[] data;
+    private static String[] Colors;
 
-    public Users_AList(int userId, LinkedList<LinkedList<String>> accList, Lock[] resources, int numDomains, int numObjects) {
+    public Users_AList(int userId, LinkedList<LinkedList<String>> accList, Lock[] resources, int numDomains, int numObjects, String[] data, String[] Colors) {
         this.userId = userId;
         this.accList = accList;
         this.resources = resources;
         this.numDomains = numDomains;
         this.numObjects = numObjects;
+        this.data = data;
+        this.Colors = Colors;
     }
 
     public void yieldR() {
@@ -74,7 +78,7 @@ class Users_AList extends Thread {
                                 resources[objId].unlock();
                             } else if (permission.equals("R") || permission.equals("B")) {
                                 resources[objId].lock();
-                                System.out.println("User D" + userId + " accessed (O" + objId + ") with (R)");
+                                System.out.println("User D" + userId + " accessed (O" + objId + ") Reading '" + data[objId] + "' with (R)");
                                 yieldR();
                                 resources[objId].unlock();
                             } else {
@@ -92,7 +96,9 @@ class Users_AList extends Thread {
                                 resources[objId].unlock();
                             } else if (permission.equals("W") || permission.equals("B")) {
                                 resources[objId].lock();
-                                System.out.println("User D" + userId + " accessed (O" + objId + ") with (W)");
+                                int r = random.nextInt(Colors.length);
+                                data[objId] = Colors[r];
+                                System.out.println("User D" + userId + " accessed (O" + objId + ") Writing '" + data[objId] + "' with (W)");
                                 yieldR();
                                 resources[objId].unlock();
                             } else {
