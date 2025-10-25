@@ -6,7 +6,9 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 class AccessMatrix {
-    static Lock[] resources;
+    static Lock[] resourceLocks;
+    static String[] data;
+    public final static String[] Colors = {"blue", "red", "green", "yellow", "purple", "orange", "pink", "brown", "black", "white"};
     public static void main(String[] args) {
 
         System.out.println("\nAccess Matrix Key: ");
@@ -21,17 +23,19 @@ class AccessMatrix {
         String[][] accMat = matrix(numDomains, numObjects);
         System.out.println("Access Matrix Rows:" + accMat.length + " Columns:" + accMat[0].length + "\n");
 
-        resources = new Lock[numObjects + numDomains];
+        resourceLocks = new Lock[numObjects + numDomains];
+        data = new String[numObjects + numDomains];
         for (int r = 0; r < (numObjects + numDomains); r++) {
-            resources[r] = new ReentrantLock();
+            resourceLocks[r] = new ReentrantLock();
+            data[r] = Colors[random.nextInt(Colors.length)];
         }
-        System.out.println("Resources Array holds: " + numObjects + " files(objects) and " + numDomains + " domains. " + resources.length + " in total.\n");
+        System.out.println("Resources Array holds: " + numObjects + " files(objects) and " + numDomains + " domains. " + resourceLocks.length + " in total.\n");
         System.out.println("Num of Users (domains) shall be: " + numDomains + ".\n");
         System.out.println("User Access Key: ");
         System.out.println("(O) = Accessed Object, (R) = Read, (W) = Write, (E) = No Assigned Permissions, **An attached X = Access Denied**\n");
 
         for (int i = 0; i < numDomains; i++){
-            Users user = new Users(i, accMat, resources, numDomains, numObjects);
+            Users user = new Users(i, accMat, resourceLocks, numDomains, numObjects, data, Colors);
             user.start();
         }
     }
