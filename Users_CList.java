@@ -1,3 +1,4 @@
+//Start of code written by Darrin Rious Jr. (C00520576), based on original code from Roland Okungbowa
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.concurrent.locks.Lock;
@@ -118,3 +119,4 @@ class Users_CList extends Thread {
         System.out.println("User domain changed to D" + userId);
     }
 }
+// End of code written by Darrin Rious Jr. (C00520576), based on original code from Roland Okungbowa

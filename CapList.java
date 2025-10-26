@@ -71,7 +71,7 @@ class CapList {
                 }
             }
         }
-
+        // Start of code written by Darrin Rious Jr. (C00520576)
         for (int i = 0; i < n; i++) {
             System.out.print("D" + i + " --> ");
             boolean first_entry = true;
@@ -99,6 +99,7 @@ class CapList {
             }
             System.out.println();
         }
+        // End of code written by Darrin Rious Jr. (C00520576)
 
         return lists;
     }
