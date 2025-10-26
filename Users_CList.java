@@ -1,3 +1,5 @@
+// Start code changes by Darrin Rious Jr. (C00520576), based on code written by Roland Okungbowa
+
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.concurrent.locks.Lock;
@@ -137,3 +139,4 @@ class Users_CList extends Thread {
         userDomainId = (a - numObjects);
     }
 }
+// End code changes by Darrin Rious Jr. (C00520576), based on code written by Roland Okungbowa
