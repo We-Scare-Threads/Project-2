@@ -19,6 +19,7 @@ class Users_CList extends Thread {
 
     public Users_CList(int userId, LinkedList<LinkedList<String>> capList, Lock[] resources, int numDomains, int numObjects, String[] data, String[] Colors) {
         this.userId = userId;
+        this.userDomainId = userId;
         this.capList = capList;
         this.resources = resources;
         this.numDomains = numDomains;
@@ -139,4 +140,5 @@ class Users_CList extends Thread {
         userDomainId = (a - numObjects);
     }
 }
+
 // End code changes by Darrin Rious Jr. (C00520576), based on code written by Roland Okungbowa

@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+// Begin Code by Roland
 class AccessMatrix {
     static Lock[] resourceLocks;
     static String[] data;
@@ -40,6 +41,9 @@ class AccessMatrix {
             user.start();
         }
     }
+    // End Code by Roland
+
+    // Begin Code by Justin
 
     public static String[][] matrix(int n, int m) {
         Random random = new Random();
@@ -90,5 +94,7 @@ class AccessMatrix {
         }
         return accessmatrix;
     }
+
 }
 
+// End Code by Justin

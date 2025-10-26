@@ -17,6 +17,7 @@ class Users_AList extends Thread {
 
     public Users_AList(int userId, LinkedList<LinkedList<String>> accList, Lock[] resources, int numDomains, int numObjects, String[] data, String[] Colors) {
         this.userId = userId;
+        this.userDomainId = userId;
         this.accList = accList;
         this.resources = resources;
         this.numDomains = numDomains;

@@ -1,6 +1,7 @@
 import java.util.Random;
 import java.util.concurrent.locks.Lock;
 
+// Begin Code by Roland
 class Users extends Thread {
     private int userId;
     private int userDomainId;
@@ -24,6 +25,9 @@ class Users extends Thread {
         this.Colors = Colors;
     }
 
+    // End Code by Roland
+
+    // Begin Code by Justin
     public void yieldR() {
         Random random = new Random();
         int y = random.nextInt(5) + 3;
@@ -32,7 +36,9 @@ class Users extends Thread {
             Thread.yield();
         }
     }
+    // End Code by Justin
 
+    // Begin Code by Roland, added extra by Justin
     @Override
     public void run() {
         try {
@@ -130,3 +136,5 @@ class Users extends Thread {
         userDomainId = (a - numObjects);
     }
 }
+
+// End Code by Roland
