@@ -33,7 +33,7 @@ class AccessMatrix {
         System.out.println("Resources Array holds: " + numObjects + " files(objects) and " + numDomains + " domains. " + resourceLocks.length + " in total.\n");
         System.out.println("Num of Users (domains) shall be: " + numDomains + ".\n");
         System.out.println("User Access Key: ");
-        System.out.println("(O) = Accessed Object, (R) = Read, (W) = Write, (E) = No Assigned Permissions, **An attached X = Access Denied**\n");
+        System.out.println("(F) = Accessed File, (R) = Read, (W) = Write, (E) = No Assigned Permissions, **An attached X = Access Denied**\n");
 
         for (int i = 0; i < numDomains; i++){
             Users user = new Users(i, accMat, resourceLocks, numDomains, numObjects, data, Colors);
