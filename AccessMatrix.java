@@ -1,14 +1,14 @@
 //Task 1: Implementation with an Access Matrix
-import java.util.Arrays;
+
 import java.util.Random;
-import java.util.Scanner;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 class AccessMatrix {
     static Lock[] resourceLocks;
     static String[] data;
-    public final static String[] Colors = {"blue", "red", "green", "yellow", "purple", "orange", "pink", "brown", "black", "white"};
+    public final static String[] Colors = {"Blue", "Red", "Green", "Yellow", "Purple", "Orange", "Pink", "Brown", "Black", "White"};
+
     public static void main(String[] args) {
 
         System.out.println("\nAccess Matrix Key: ");
@@ -17,14 +17,15 @@ class AccessMatrix {
 
         int numDomains = random.nextInt(5) + 3;
         int numObjects = random.nextInt(5) + 3;
-        System.out.println("D: " + numDomains);
-        System.out.println("O: " + numObjects + "\n");
+        System.out.println("Domains: " + numDomains);
+        System.out.println("Objects: " + numObjects + "\n");
 
         String[][] accMat = matrix(numDomains, numObjects);
         System.out.println("Access Matrix Rows:" + accMat.length + " Columns:" + accMat[0].length + "\n");
 
         resourceLocks = new Lock[numObjects + numDomains];
         data = new String[numObjects + numDomains];
+
         for (int r = 0; r < (numObjects + numDomains); r++) {
             resourceLocks[r] = new ReentrantLock();
             data[r] = Colors[random.nextInt(Colors.length)];
@@ -48,17 +49,17 @@ class AccessMatrix {
         String[] domperms = {"E", "A"};
 
         String[][] accessmatrix = new String[n][m+n];
-        System.out.println("Matrix: ");
+        System.out.println("Matrix: " + n + " X " + m);
         System.out.print("    ");
         int o, d;
         for (int i = 0; i < m + n; i++) {
             if (i < m) {
-                System.out.print("O" + i + " ");
+                System.out.print("F" + i + " ");
             }
             else {
                 System.out.print("D" + (i - m) + " ");
             }
-            if(i == m + n - 1){
+            if (i == m + n - 1){
                 System.out.println();
             }
         }
