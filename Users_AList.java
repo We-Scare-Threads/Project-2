@@ -3,11 +3,11 @@ import java.util.Random;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-class Users_CList extends Thread {
+class Users_AList extends Thread {
     private int userId;
     private int userDomainId;
     Lock[] resources;
-    private final LinkedList<LinkedList<String>> capList;
+    private final LinkedList<LinkedList<String>> accList;
     static String[] objActions = {"R", "W"};
     static String domAction = "A";
     private int numDomains;
@@ -15,9 +15,9 @@ class Users_CList extends Thread {
     private String[] data;
     private static String[] Colors;
 
-    public Users_CList(int userId, LinkedList<LinkedList<String>> capList, Lock[] resources, int numDomains, int numObjects, String[] data, String[] Colors) {
+    public Users_AList(int userId, LinkedList<LinkedList<String>> accList, Lock[] resources, int numDomains, int numObjects, String[] data, String[] Colors) {
         this.userId = userId;
-        this.capList = capList;
+        this.accList = accList;
         this.resources = resources;
         this.numDomains = numDomains;
         this.numObjects = numObjects;
@@ -42,12 +42,7 @@ class Users_CList extends Thread {
 
                 int objId = random.nextInt(resources.length);
                 int actionIndex = random.nextInt(objActions.length);
-
-                if (objId >= numObjects && (objId - numObjects) == userId) {
-                    continue;
-                }
-
-                String permission = capList.get(userId).get(objId);
+                String permission = accList.get(objId).get(userId);
                 String action;
 
                 if (objId >= numObjects) { // Domain switch

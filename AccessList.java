@@ -7,7 +7,7 @@ import java.util.concurrent.locks.ReentrantLock;
 class AccessList {
     static Lock[] resourceLocks;
     static String[] data;
-    public static final String[] Colors = {"blue", "red", "green", "yellow", "purple", "orange", "pink", "brown", "black", "white"};
+    public final static String[] Colors = {"Blue", "Red", "Green", "Yellow", "Purple", "Orange", "Pink", "Brown", "Black", "White"};
     public static void main(String[] args) {
         System.out.println("\nAccess List Key: ");
         System.out.println("R = Read, W = Write, B = Both (Read/Write), E = Empty/No Access, N = No Access (for Domains ONLY)");
@@ -16,8 +16,8 @@ class AccessList {
         int numDomains = random.nextInt(5) + 3;
         int numObjects = random.nextInt(5) + 3;
 
-        System.out.println("D: " + numDomains);
-        System.out.println("O: " + numObjects + "\n");
+        System.out.println("Domains: " + numDomains);
+        System.out.println("Objects: " + numObjects + "\n");
 
         LinkedList<LinkedList<String>> accList = AList(numDomains, numObjects);
 
@@ -30,7 +30,7 @@ class AccessList {
         System.out.println("Resources Array holds: " + numObjects + " files(objects) and " + numDomains + " domains. " + resourceLocks.length + " in total.\n");
         System.out.println("Num of Users (domains) shall be: " + numDomains + ".\n");
         System.out.println("User Access Key: ");
-        System.out.println("(O) = Accessed Object, (R) = Read, (W) = Write, (E) = No Assigned Permissions, **An attached X = Access Denied**\n");
+        System.out.println("(F) = Accessed File, (R) = Read, (W) = Write, (E) = No Assigned Permissions, **An attached X = Access Denied**\n");
 
         for (int i = 0; i < numDomains; i++){
             Users_AList user = new Users_AList(i, accList, resourceLocks, numDomains, numObjects, data, Colors);
@@ -71,7 +71,7 @@ class AccessList {
         }
         for (int i = 0; i < numObj; i++) {
             int lastAccess = numDom-1;
-            System.out.print("O" + i + " --> [");
+            System.out.print("F" + i + " --> [");
             while(lists.get(i).get(lastAccess).equals("E") && lastAccess > 0) lastAccess--;
             for(int j=0; j<lists.get(i).size(); j++) {
                 if(j!=(lastAccess) && !(lists.get(i).get(j).equals("E"))){

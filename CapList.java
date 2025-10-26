@@ -8,7 +8,7 @@ import java.util.concurrent.locks.ReentrantLock;
 class CapList {
     static Lock[] resources;
     static String[] data;
-    public final static String[] Colors = {"blue", "red", "green", "yellow", "purple", "orange", "pink", "brown", "black", "white"};
+    public final static String[] Colors = {"Blue", "Red", "Green", "Yellow", "Purple", "Orange", "Pink", "Brown", "Black", "White"};
 
 
     public static void main(String[] args) {
@@ -19,8 +19,8 @@ class CapList {
         int numDomains = random.nextInt(5) + 3;
         int numObjects = random.nextInt(5) + 3;
 
-        System.out.println("D: " + numDomains);
-        System.out.println("F: " + numObjects + "\n");
+        System.out.println("Domains: " + numDomains);
+        System.out.println("Files: " + numObjects + "\n");
 
         LinkedList<LinkedList<String>> capList = CList(numDomains, numObjects);
 
