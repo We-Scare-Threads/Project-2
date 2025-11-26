@@ -35,7 +35,6 @@ class Users_AList extends Thread {
         }
     }
 
-    //Began by Roland, Extra Yield added by Jusin
     @Override
     public void run() {
         try {
@@ -133,5 +132,4 @@ class Users_AList extends Thread {
     public void switchUser(int a){
         userDomainId = (a - numObjects);
     }
-
 }

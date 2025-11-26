@@ -8,9 +8,13 @@ public class Main {
             System.out.println("Example: `java main -S 1` ");
             return;
         }
-
+        if (args.length != 2) {
+            System.out.println("Unknown");
+            System.exit(0);
+        }
         String option = args[0]; // first argument
         String task = args[1]; // first argument
+
         if(option.equals("-s") || option.equals("-S")) {
             switch (task) {
                 case "1":
